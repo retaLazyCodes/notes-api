@@ -5,7 +5,8 @@ const express = require('express')
 const cors = require('cors')
 const notFound = require('./middleware/notFound.js')
 const handleErrors = require('./middleware/handleErrors.js')
-const notesRoutes = require('./routes/notes.routes')
+const notesRouter = require('./routes/notes.routes')
+const usersRouter = require('./routes/users.routes')
 
 // initializate app
 const app = express()
@@ -16,7 +17,8 @@ app.use(express.json())
 app.use('/images', express.static('images'))
 
 // routes
-app.use(notesRoutes)
+app.use('/api/notes', notesRouter)
+app.use('/api/users', usersRouter)
 
 // custom middlewares
 app.use(notFound)
