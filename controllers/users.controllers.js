@@ -15,7 +15,7 @@ exports.createUser = async (request, response, next) => {
 
     user.save()
         .then(savedUser => {
-            response.json(savedUser)
+            response.status(201).json(savedUser)
         })
         .catch(err => next(err))
 }
