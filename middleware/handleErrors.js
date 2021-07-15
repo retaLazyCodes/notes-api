@@ -3,7 +3,11 @@ module.exports = (error, request, response, next) => {
 
   if (error.name === 'CastError') {
     response.status(400).send({ error: 'id used is malformed' })
-  } else {
+  }
+  else if (error.name === 'ValidationError') {
+    response.status(409).json(error)
+  }
+  else {
     response.status(500).end()
   }
 }
