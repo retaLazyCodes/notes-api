@@ -2,7 +2,7 @@ const Note = require('../models/Note')
 
 
 exports.getAllNotes = (request, response) => {
-    Note.find({}).then(notes => {
+    Note.find().then(notes => {
         response.json(notes)
     })
 }
@@ -36,7 +36,7 @@ exports.updateNote = (request, response, next) => {
         .catch(next)
 }
 
-exports.deleteNote = async (request, response, next) => {
+exports.deleteNote = (request, response, next) => {
     const { id } = request.params
 
     Note.findByIdAndRemove(id)
@@ -62,7 +62,9 @@ exports.createNote = (request, response, next) => {
         important: note.important || false
     })
 
-    newNote.save().then(savedNote => {
-        response.json(savedNote)
-    }).catch(err => next(err))
+    newNote.save()
+        .then(savedNote => {
+            response.json(savedNote)
+        })
+        .catch(err => next(err))
 }
