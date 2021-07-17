@@ -7,6 +7,9 @@ module.exports = (error, request, response, next) => {
   else if (error.name === 'ValidationError') {
     response.status(409).json(error)
   }
+  else if (error.codeName === 'DuplicateKey') {
+    response.status(409).json(error)
+  }
   else {
     response.status(500).end()
   }
