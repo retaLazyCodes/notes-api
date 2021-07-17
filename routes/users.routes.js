@@ -2,12 +2,13 @@ const router = require('express').Router()
 
 const usersController = require('../controllers/users.controllers')
 
-// api/notes
+// api/users
+router.get('/', usersController.getUsers)
 router.post('/', usersController.createUser)
 
-// api/notes/:noteID
+// api/users/:userID
 // router.get('/:id', notesController.getNoteById)
-// router.put('/:id', notesController.updateNote)
+router.put('/:id', usersController.updateUser)
 // router.delete('/:id', notesController.deleteNote)
 
 
