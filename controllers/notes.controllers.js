@@ -1,10 +1,13 @@
 const Note = require('../models/Note')
+const User = require('../models/User')
 
 
-exports.getAllNotes = (request, response) => {
-    Note.find().then(notes => {
-        response.json(notes)
+exports.getAllNotes = async (request, response) => {
+    const notes = await Note.find().populate('user', {
+        username: 1,
+        name: 1
     })
+    response.json(notes)
 }
 
 exports.getNoteById = (request, response, next) => {
@@ -47,24 +50,34 @@ exports.deleteNote = (request, response, next) => {
         .catch(next)
 }
 
-exports.createNote = (request, response, next) => {
-    const note = request.body
+exports.createNote = async (request, response, next) => {
+    const {
+        content,
+        important = false,
+        userId
+    } = request.body
 
-    if (!note.content) {
+    if (!content) {
         return response.status(400).json({
             error: 'required "content" field is missing'
         })
     }
+    const user = await User.findById(userId)
 
     const newNote = new Note({
-        content: note.content,
+        content,
         date: new Date(),
-        important: note.important || false
+        important,
+        user: user._id
     })
 
-    newNote.save()
-        .then(savedNote => {
-            response.json(savedNote)
-        })
-        .catch(err => next(err))
+    try {
+        const savedNote = await newNote.save()
+        user.notes = user.notes.concat(savedNote._id)
+        await User.findByIdAndUpdate(userId, user, { new: true })
+
+        response.json(savedNote)
+    } catch (error) {
+        next(error)
+    }
 }
