@@ -1,19 +1,28 @@
-module.exports = (error, request, response, next) => {
-  console.error(error)
+const ERROR_HANDLERS = {
+  CastError: res =>
+    res.status(400).send({ error: 'id used is malformed' }),
 
-  if (error.name === 'CastError') {
-    response.status(400).send({ error: 'id used is malformed' })
+  ValidationError: (res, { message }) =>
+    res.status(409).send({ error: message }),
+
+  JsonWebTokenError: (res) =>
+    res.status(401).json({ error: 'token missing or invalid' }),
+
+  TokenExpirerError: res =>
+    res.status(401).json({ error: 'token expired' }),
+
+  DuplicateKey: (res, error) =>
+    res.status(409).json(error),
+
+  defaultError: (res, error) => {
+    console.error(error.name)
+    res.status(500).end()
   }
-  else if (error.name === 'ValidationError') {
-    response.status(409).json(error)
-  }
-  else if (error.name === 'DuplicateKey') {
-    response.status(409).json(error)
-  }
-  else if (error.name === 'JsonWebTokenError') {
-    response.status(401).json({ error: 'token missing or invalid' })
-  }
-  else {
-    response.status(500).end()
-  }
+}
+
+module.exports = (error, request, response, next) => {
+  const handler =
+    ERROR_HANDLERS[error.name] || ERROR_HANDLERS.defaultError
+
+  handler(response, error)
 }
