@@ -45,5 +45,10 @@ exports.updateUser = async (request, response, next) => {
             if (result === null) return response.sendStatus(404)
             response.json(result)
         })
-        .catch(err => next(err))
+        .catch(err => {
+            if (err.name === 'MongoError') {
+                err = { ...err, name: err.codeName }
+            }
+            next(err)
+        })
 }
