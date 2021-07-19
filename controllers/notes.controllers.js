@@ -1,7 +1,6 @@
 const Note = require('../models/Note')
 const User = require('../models/User')
 
-
 exports.getAllNotes = async (request, response) => {
     const notes = await Note.find().populate('user', {
         username: 1,
@@ -53,8 +52,7 @@ exports.deleteNote = (request, response, next) => {
 exports.createNote = async (request, response, next) => {
     const {
         content,
-        important = false,
-        userId
+        important = false
     } = request.body
 
     if (!content) {
@@ -62,6 +60,8 @@ exports.createNote = async (request, response, next) => {
             error: 'required "content" field is missing'
         })
     }
+
+    const { userId } = request
     const user = await User.findById(userId)
 
     const newNote = new Note({

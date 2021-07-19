@@ -1,7 +1,8 @@
-PUT http://localhost:3001/api/notes/60e4002bb961464364a4f940
+PUT http://localhost:3001/api/notes/60f5f17a074402c8adce22fc
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZjJmOGY1NTE3NjM4YTFmZWFjOWMxMCIsInVzZXJuYW1lIjoibWlkdWRldjIiLCJpYXQiOjE2MjY3MzA0MzcsImV4cCI6MTYyNzMzNTIzN30.KG6SMhVxJlDMmzYc1JyZK-uxOFAE4YX3rLJj1fHriq8
 
 {
-  "content": "Suscríbete con PRIME que es gratishh",
+  "content": "Nota editada",
   "important": true
 }

@@ -7,8 +7,11 @@ module.exports = (error, request, response, next) => {
   else if (error.name === 'ValidationError') {
     response.status(409).json(error)
   }
-  else if (error.codeName === 'DuplicateKey') {
+  else if (error.name === 'DuplicateKey') {
     response.status(409).json(error)
+  }
+  else if (error.name === 'JsonWebTokenError') {
+    response.status(401).json({ error: 'token missing or invalid' })
   }
   else {
     response.status(500).end()

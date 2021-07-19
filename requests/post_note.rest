@@ -1,8 +1,8 @@
 POST http://localhost:3001/api/notes
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZjJmOGY1NTE3NjM4YTFmZWFjOWMxMCIsInVzZXJuYW1lIjoibWlkdWRldjIiLCJpYXQiOjE2MjY3MzA0MzcsImV4cCI6MTYyNzMzNTIzN30.KG6SMhVxJlDMmzYc1JyZK-uxOFAE4YX3rLJj1fHriq8
 
 {
-  "content": "Suscríbete a @midudev",
-  "important": true,
-  "userId": "60f2ec066d1bec86aae2b337"
+  "content": "Nueva nota2",
+  "important": true
 }
