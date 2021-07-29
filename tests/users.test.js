@@ -52,7 +52,7 @@ describe.only('Creating a new user', () => {
             .expect(409)
             .expect('Content-Type', /application\/json/)
 
-        expect(result.body.errors.username.message).toContain('`username` to be unique')
+        expect(result.body.error).toContain('`username` to be unique')
 
         const usersAtEnd = await getUsers()
         expect(usersAtEnd).toHaveLength(usersAtStart.length)

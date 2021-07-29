@@ -21,6 +21,19 @@ const initialNotes = [
     }
 ]
 
+const getUserToken = async () => {
+    const user = {
+        username: "reta730",
+        password: "123"
+    }
+    const result = await api
+        .post('/api/login')
+        .send(user)
+
+    const { token } = result.body
+    return token
+}
+
 const getAllContentFromNotes = async () => {
     const response = await api.get('/api/notes')
     return {
@@ -38,5 +51,6 @@ module.exports = {
     initialNotes,
     api,
     getAllContentFromNotes,
-    getUsers
+    getUsers,
+    getUserToken
 }

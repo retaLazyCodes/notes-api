@@ -5,9 +5,17 @@ const { server } = require('../index')
 const {
     initialNotes,
     api,
-    getAllContentFromNotes
+    getAllContentFromNotes,
+    getUserToken
 } = require('./helpers')
 
+let userToken = ''
+
+
+beforeAll(async () => {
+    userToken = await getUserToken()
+    console.log('bearer ' + userToken)
+})
 
 beforeEach(async () => {
     await Note.deleteMany({})
@@ -16,7 +24,6 @@ beforeEach(async () => {
         const noteObject = new Note(note)
         await noteObject.save()
     }
-
 })
 
 describe('GET all notes', () => {
@@ -53,6 +60,7 @@ describe('create a note', () => {
 
         await api
             .post('/api/notes')
+            .set('Authorization', 'bearer ' + userToken)
             .send(newNote)
             .expect(200)
             .expect('Content-Type', /application\/json/)
@@ -71,6 +79,7 @@ describe('create a note', () => {
 
         await api
             .post('/api/notes')
+            .set('Authorization', 'bearer ' + userToken)
             .send(newNote)
             .expect(400)
 
@@ -88,6 +97,7 @@ describe('delete a note', () => {
 
         await api
             .delete(`/api/notes/${noteToDelete.id}`)
+            .set('Authorization', 'bearer ' + userToken)
             .expect(204)
 
         const { contents, response: secondResponse } = await getAllContentFromNotes()
@@ -98,6 +108,7 @@ describe('delete a note', () => {
     test('a note that has an invalid id cannot be deleted', async () => {
         await api
             .delete('/api/notes/1234')
+            .set('Authorization', 'bearer ' + userToken)
             .expect(400)
 
         const { response } = await getAllContentFromNotes()
@@ -109,6 +120,7 @@ describe('delete a note', () => {
         const validObjectIdThatDoNotExist = '60451827152dc22ad768f442'
         await api
             .delete(`/api/notes/${validObjectIdThatDoNotExist}`)
+            .set('Authorization', 'bearer ' + userToken)
             .expect(404)
 
         const { response } = await getAllContentFromNotes()
@@ -125,6 +137,7 @@ describe('update a note', () => {
 
         await api
             .put(`/api/notes/${noteToUpdate.id}`)
+            .set('Authorization', 'bearer ' + userToken)
             .send(noteToUpdate)
             .expect(200)
 
@@ -140,6 +153,7 @@ describe('update a note', () => {
     test('a note that has an invalid id cannot be updated', async () => {
         await api
             .put('/api/notes/1234')
+            .set('Authorization', 'bearer ' + userToken)
             .expect(400)
     })
 
@@ -147,6 +161,7 @@ describe('update a note', () => {
         const validObjectIdThatDoNotExist = '60451827152dc22ad768f442'
         await api
             .put(`/api/notes/${validObjectIdThatDoNotExist}`)
+            .set('Authorization', 'bearer ' + userToken)
             .expect(404)
     })
 
