@@ -4,6 +4,8 @@ require('./mongo')
 const express = require('express')
 const cors = require('cors')
 const logger = require("morgan");
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 const notFound = require('./middleware/notFound.js')
 const handleErrors = require('./middleware/handleErrors.js')
 const notesRouter = require('./routes/notes.routes')
@@ -12,6 +14,32 @@ const loginRouter = require('./routes/login.routes')
 
 // initializate app
 const app = express()
+
+// Extended: https://swagger.io/specification/#infoObject
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: '3.0.0',
+        info: {
+            version: "1.0.0",
+            title: "Notes API",
+            description: "Notes API Information",
+            contact: {
+                name: "Brian Retamar"
+            },
+            servers: [{
+                url: 'http://localhost:3001/',
+            }],
+        }
+    },
+    apis: ['./routes/*.js']
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs",
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocs)
+);
+
 
 // middlewares
 app.use(logger("dev"));
