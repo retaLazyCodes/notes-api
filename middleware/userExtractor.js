@@ -1,7 +1,13 @@
 const jwt = require('jsonwebtoken')
 
 module.exports = (request, response, next) => {
-    const authorization = request.get('authorization')
+    let authorization
+    if (request.get('authorization') != null) {
+        authorization = request.get('authorization')
+    }
+    else {
+        authorization = request.headers.token
+    }
     let token = ''
 
     if (authorization && authorization.toLowerCase().startsWith('bearer')) {

@@ -8,7 +8,7 @@ const ERROR_HANDLERS = {
   JsonWebTokenError: (res) =>
     res.status(401).json({ error: 'token missing or invalid' }),
 
-  TokenExpirerError: res =>
+  TokenExpiredError: res =>
     res.status(401).json({ error: 'token expired' }),
 
   DuplicateKey: (res, error) =>
@@ -21,6 +21,7 @@ const ERROR_HANDLERS = {
 }
 
 module.exports = (error, request, response, next) => {
+  console.log(error)
   const handler =
     ERROR_HANDLERS[error.name] || ERROR_HANDLERS.defaultError
 
