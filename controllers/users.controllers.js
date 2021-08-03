@@ -11,6 +11,7 @@ exports.getUsers = async (request, response, next) => {
 
 exports.createUser = async (request, response, next) => {
     const { body } = request
+    console.log(body)
     const { username, name, password } = body
 
     const passwordHash = await bcrypt.hash(password, 10)

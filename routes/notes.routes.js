@@ -32,6 +32,8 @@ router.get('/', notesController.getAllNotes)
  *       - in: header
  *         name: token
  *         type: string
+ *         default: Bearer <your token>
+ *         example: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
  *       - in: body
  *         name: note
  *         description: The note to create.
@@ -42,11 +44,14 @@ router.get('/', notesController.getAllNotes)
  *           properties:
  *             content:
  *               type: string
+ *               example: Jojo's part4 > part5
  *             important:
  *               type: boolean
+ *               default: true
+ *               example: false
  *     responses:
  *       201:
- *         description: Return the created note
+ *         description: Returns the created note
  */
 router.post('/', userExtractor, notesController.createNote)
 /**
@@ -76,9 +81,12 @@ router.get('/:id', notesController.getNoteById)
  *       - in: path
  *         name: id
  *         type: string
+ *         example: 60f86030c4970119bf774bb8
  *       - in: header
  *         name: token
  *         type: string
+ *         default: Bearer <your token>
+ *         example: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
  *       - in: body
  *         name: note
  *         description: The content to update.
@@ -89,6 +97,7 @@ router.get('/:id', notesController.getNoteById)
  *           properties:
  *             content:
  *               type: string
+ *               example: "You say Python is slow? Then program in assembler"
  *             important:
  *               type: boolean
  *     responses:

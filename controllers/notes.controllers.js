@@ -76,7 +76,7 @@ exports.createNote = async (request, response, next) => {
         user.notes = user.notes.concat(savedNote._id)
         await User.findByIdAndUpdate(userId, user, { new: true })
 
-        response.json(savedNote)
+        response.status(201).json(savedNote)
     } catch (error) {
         next(error)
     }

@@ -14,7 +14,6 @@ let userToken = ''
 
 beforeAll(async () => {
     userToken = await getUserToken()
-    console.log('bearer ' + userToken)
 })
 
 beforeEach(async () => {
@@ -62,7 +61,7 @@ describe('create a note', () => {
             .post('/api/notes')
             .set('Authorization', 'bearer ' + userToken)
             .send(newNote)
-            .expect(200)
+            .expect(201)
             .expect('Content-Type', /application\/json/)
 
         const { contents, response } = await getAllContentFromNotes()

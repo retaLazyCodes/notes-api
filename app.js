@@ -18,16 +18,16 @@ const app = express()
 // Extended: https://swagger.io/specification/#infoObject
 const swaggerOptions = {
     swaggerDefinition: {
-        openapi: '3.0.0',
+        swagger: "2.0",
         info: {
-            version: "1.0.0",
+            version: "version 0.1.0",
             title: "Notes API",
             description: "Notes API Information",
             contact: {
                 name: "Brian Retamar"
             },
             servers: [{
-                url: 'http://localhost:3001/',
+                url: `${process.env.PORT}`,
             }],
         }
     },
