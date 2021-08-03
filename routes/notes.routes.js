@@ -116,9 +116,12 @@ router.put('/:id', userExtractor, notesController.updateNote)
  *       - in: path
  *         name: id
  *         type: string
+ *         example: 60f86030c4970119bf774bb8
  *       - in: header
  *         name: token
  *         type: string
+ *         default: Bearer <your token>
+ *         example: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
  *     responses:
  *       204:
  *         description: Return a 'no content' status which indicates that the note was deleted successfully
