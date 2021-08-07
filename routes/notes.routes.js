@@ -14,6 +14,8 @@ const notesController = require('../controllers/notes.controllers')
  * paths:
  *  /api/notes:
  *   get:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Show all notes
  *     tags: [Notes]
  *     responses:
@@ -26,14 +28,11 @@ router.get('/', notesController.getAllNotes)
  * paths:
  *  /api/notes:
  *   post:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Creates a new note
  *     tags: [Notes]
  *     parameters:
- *       - in: header
- *         name: token
- *         type: string
- *         default: Bearer <your token>
- *         example: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
  *       - in: body
  *         name: note
  *         description: The note to create.
@@ -52,6 +51,8 @@ router.get('/', notesController.getAllNotes)
  *     responses:
  *       201:
  *         description: Returns the created note
+ *       401:
+ *         description: You do not have necessary permissions for the resource
  */
 router.post('/', userExtractor, notesController.createNote)
 /**
@@ -59,6 +60,8 @@ router.post('/', userExtractor, notesController.createNote)
  * paths:
  *  /api/notes/{id}:
  *   get:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Get a note by ID
  *     tags: [Notes]
  *     parameters:
@@ -68,6 +71,8 @@ router.post('/', userExtractor, notesController.createNote)
  *     responses:
  *       200:
  *         description: Return the solicited note
+ *       400:
+ *         description: The ID is missing or is invalid
  */
 router.get('/:id', notesController.getNoteById)
 /**
@@ -75,6 +80,8 @@ router.get('/:id', notesController.getNoteById)
  * paths:
  *  /api/notes/{id}:
  *   put:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Update a note
  *     tags: [Notes]
  *     parameters:
@@ -82,11 +89,6 @@ router.get('/:id', notesController.getNoteById)
  *         name: id
  *         type: string
  *         example: 60f86030c4970119bf774bb8
- *       - in: header
- *         name: token
- *         type: string
- *         default: Bearer <your token>
- *         example: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
  *       - in: body
  *         name: note
  *         description: The content to update.
@@ -103,6 +105,8 @@ router.get('/:id', notesController.getNoteById)
  *     responses:
  *       200:
  *         description: Return the updated note
+ *       401:
+ *         description: You do not have necessary permissions for the resource
  */
 router.put('/:id', userExtractor, notesController.updateNote)
 /**
@@ -110,6 +114,8 @@ router.put('/:id', userExtractor, notesController.updateNote)
  * paths:
  *  /api/notes/{id}:
  *   delete:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Delete a note
  *     tags: [Notes]
  *     parameters:
@@ -117,14 +123,11 @@ router.put('/:id', userExtractor, notesController.updateNote)
  *         name: id
  *         type: string
  *         example: 60f86030c4970119bf774bb8
- *       - in: header
- *         name: token
- *         type: string
- *         default: Bearer <your token>
- *         example: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
  *     responses:
  *       204:
  *         description: Return a 'no content' status which indicates that the note was deleted successfully
+ *       401:
+ *         description: You do not have necessary permissions for the resource
  */
 router.delete('/:id', userExtractor, notesController.deleteNote)
 

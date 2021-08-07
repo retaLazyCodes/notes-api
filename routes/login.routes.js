@@ -14,6 +14,8 @@ const loginControllers = require('../controllers/login.controllers')
  * paths:
  *  /api/login:
  *   post:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Authenticate a user
  *     tags: [Login]
  *     parameters:
@@ -35,6 +37,8 @@ const loginControllers = require('../controllers/login.controllers')
  *     responses:
  *       200:
  *         description: Returns the token of the authenticated user
+ *       401: 
+ *         description: The username or password is invalid
  */
 router.post('/', loginControllers.authLogin)
 

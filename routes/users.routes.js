@@ -15,6 +15,8 @@ const usersController = require('../controllers/users.controllers')
  * paths:
  *  /api/users:
  *   get:
+ *     security:
+ *      - bearerAuth: []
  *     summary: List all users
  *     tags: [Users]
  *     responses:
@@ -28,6 +30,8 @@ router.get('/', usersController.getUsers)
  * paths:
  *  /api/users:
  *   post:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Creates a new user
  *     tags: [Users]
  *     parameters:
@@ -61,6 +65,8 @@ router.post('/', usersController.createUser)
  * paths:
  *  /api/users/{id}:
  *   put:
+ *     security:
+ *      - bearerAuth: []
  *     summary: Update a user
  *     tags: [Users]
  *     parameters:
