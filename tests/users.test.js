@@ -4,12 +4,12 @@ const User = require('../models/User')
 const { api, getUsers } = require('./helpers')
 const { server } = require('../index')
 
-describe.only('Creating a new user', () => {
+describe('Creating a new user', () => {
     beforeEach(async () => {
         await User.deleteMany()
 
-        const passwordHash = await bcrypt.hash('pswd', 10)
-        const user = new User({ username: 'miduroot', passwordHash })
+        const passwordHash = await bcrypt.hash('pswd', 1)
+        const user = new User({ username: 'miduroot', name: 'Miguel', passwordHash })
 
         await user.save()
     })
@@ -42,7 +42,7 @@ describe.only('Creating a new user', () => {
 
         const newUser = {
             username: 'miduroot',
-            name: "Miguel",
+            name: 'Miguel',
             password: 'test'
         }
 
@@ -58,8 +58,16 @@ describe.only('Creating a new user', () => {
         expect(usersAtEnd).toHaveLength(usersAtStart.length)
     })
 
-    afterAll(() => {
-        mongoose.connection.close()
-        server.close()
-    })
+
+})
+
+describe('Updating a user', () => {
+
+    test.todo('Updating a user')
+
+})
+
+afterAll(() => {
+    mongoose.connection.close()
+    server.close()
 })

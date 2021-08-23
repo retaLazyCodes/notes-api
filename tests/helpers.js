@@ -22,12 +22,18 @@ const initialNotes = [
 ]
 
 const getUserToken = async () => {
+    await User.deleteMany({})
     const user = {
+        name: "Brian",
         username: "reta730",
         password: "123"
     }
+    await api
+        .post('/api/users')
+        .send(user)
+
     const result = await api
-        .post('/api/login')
+        .post('/api/auth/login')
         .send(user)
 
     const { token } = result.body
