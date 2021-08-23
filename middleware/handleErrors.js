@@ -11,6 +11,9 @@ const ERROR_HANDLERS = {
   TokenExpiredError: res =>
     res.status(401).json({ error: 'token expired' }),
 
+  UnauthorizedError: (res, { message }) =>
+    res.status(401).json({ error: message }),
+
   DuplicateKey: (res, error) =>
     res.status(409).json(error),
 
@@ -21,7 +24,7 @@ const ERROR_HANDLERS = {
 }
 
 module.exports = (error, request, response, next) => {
-  console.log(error)
+  console.error(error)
   const handler =
     ERROR_HANDLERS[error.name] || ERROR_HANDLERS.defaultError
 
