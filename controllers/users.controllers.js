@@ -14,7 +14,7 @@ exports.createUser = async (request, response, next) => {
     console.log(body)
     const { username, name, password } = body
 
-    const passwordHash = await bcrypt.hash(password, 10)
+    const passwordHash = await bcrypt.hash(password, 5)
 
     const user = new User({
         username,
@@ -34,7 +34,7 @@ exports.updateUser = async (request, response, next) => {
     const { body } = request
     const { username, name, password } = body
 
-    const passwordHash = await bcrypt.hash(password, 10)
+    const passwordHash = await bcrypt.hash(password, 5)
     const newUserInfo = {
         username,
         name,

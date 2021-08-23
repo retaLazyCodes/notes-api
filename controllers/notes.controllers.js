@@ -61,7 +61,7 @@ exports.createNote = async (request, response, next) => {
         })
     }
 
-    const { userId } = request
+    const userId = request.user.id
     const user = await User.findById(userId)
 
     const newNote = new Note({
