@@ -24,11 +24,10 @@ app.use(cors())
 app.use(express.json())
 app.use('/images', express.static('images'))
 
-// routes
-
+// Router Middlewares
 app.use('/api/notes', require('./routes/notes.routes'))
 app.use('/api/users', require('./routes/users.routes'))
-app.use('/api/login', require('./routes/login.routes'))
+app.use('/api/auth', require('./routes/auth.routes'))
 
 // custom middlewares
 app.use(notFound)
