@@ -1,6 +1,7 @@
 const router = require('express').Router()
-
 const usersController = require('../controllers/users.controllers')
+const ROLE = require('../models/role.module')
+const authorize = require('../middleware/authorize')
 
 
 /**
@@ -93,7 +94,7 @@ router.post('/', usersController.createUser)
  *       200:
  *         description: Return the updated user
  */
-router.put('/:id', usersController.updateUser)
+router.put('/:id', authorize([ROLE.Admin, ROLE.User]), usersController.updateUser)
 
 
 module.exports = router

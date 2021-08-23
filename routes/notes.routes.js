@@ -1,6 +1,7 @@
 const router = require('express').Router()
-const userExtractor = require('../middleware/userExtractor')
 const notesController = require('../controllers/notes.controllers')
+const ROLE = require('../models/role.module')
+const authorize = require('../middleware/authorize')
 
 /**
  * @swagger
@@ -54,7 +55,7 @@ router.get('/', notesController.getAllNotes)
  *       401:
  *         description: You do not have necessary permissions for the resource
  */
-router.post('/', userExtractor, notesController.createNote)
+router.post('/', authorize([ROLE.Admin, ROLE.User]), notesController.createNote)
 /**
  * @swagger
  * paths:
@@ -108,7 +109,7 @@ router.get('/:id', notesController.getNoteById)
  *       401:
  *         description: You do not have necessary permissions for the resource
  */
-router.put('/:id', userExtractor, notesController.updateNote)
+router.put('/:id', authorize([ROLE.Admin, ROLE.User]), notesController.updateNote)
 /**
  * @swagger
  * paths:
@@ -129,7 +130,7 @@ router.put('/:id', userExtractor, notesController.updateNote)
  *       401:
  *         description: You do not have necessary permissions for the resource
  */
-router.delete('/:id', userExtractor, notesController.deleteNote)
+router.delete('/:id', authorize([ROLE.Admin, ROLE.User]), notesController.deleteNote)
 
 
 module.exports = router
