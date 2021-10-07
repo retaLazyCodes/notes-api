@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development nodemon index.js",
-    "start": "NODE_ENV=production nodemon index.js",
+    "start": "NODE_ENV=production node index.js",
     "test": "NODE_ENV=test PORT=1234 jest --verbose --silent tests/users.test.js",
     "test:watch": "npm run test -- --watch"
   },
