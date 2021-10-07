@@ -25,7 +25,7 @@ mongoose.connect(connectionString, {
   .then(() => {
     console.log('Database connected')
   }).catch(err => {
-    console.error(err)
+    console.error('Error trying connect to Database\n', err)
   })
 
 // process.on('uncaughtException', () => {

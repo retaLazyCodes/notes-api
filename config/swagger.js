@@ -5,7 +5,7 @@ const swaggerOptions = {
     swaggerDefinition: {
         swagger: "2.0",
         info: {
-            version: "version 0.0.1",
+            version: "version 0.1.0",
             title: "Notes API",
             description: "Notes API Information",
         },
