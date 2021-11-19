@@ -22,18 +22,6 @@ exports.createUser = async (request, response, next) => {
         passwordHash
     })
 
-    User.findOne({ email: email })
-        .then(alreadyExists => {
-            if (alreadyExists) {
-                return response.status(409).json({ message: "User with email already exists!" });
-            }
-        })
-        .catch(
-            (err) => {
-                console.log("Error: ", err);
-            }
-        );
-
     user.save()
         .then(savedUser => {
             response.status(201).json(savedUser)
