@@ -1,7 +1,8 @@
 const router = require('express').Router()
 const notesController = require('../controllers/notes.controllers')
 const ROLE = require('../models/role.module')
-const authorize = require('../middleware/authorize')
+const authorizeUserRole = require('../middleware/authorizeUserRole')
+const authorizeNoteChanges = require('../middleware/authorizeNoteChanges')
 
 /**
  * @swagger
@@ -55,7 +56,7 @@ router.get('/', notesController.getAllNotes)
  *       401:
  *         description: You do not have necessary permissions for the resource
  */
-router.post('/', authorize([ROLE.Admin, ROLE.User]), notesController.createNote)
+router.post('/', authorizeUserRole([ROLE.Admin, ROLE.User]), notesController.createNote)
 /**
  * @swagger
  * paths:
@@ -109,7 +110,7 @@ router.get('/:id', notesController.getNoteById)
  *       401:
  *         description: You do not have necessary permissions for the resource
  */
-router.put('/:id', authorize([ROLE.Admin, ROLE.User]), notesController.updateNote)
+router.put('/:id', authorizeUserRole([ROLE.Admin, ROLE.User]), authorizeNoteChanges(), notesController.updateNote)
 /**
  * @swagger
  * paths:
@@ -130,7 +131,7 @@ router.put('/:id', authorize([ROLE.Admin, ROLE.User]), notesController.updateNot
  *       401:
  *         description: You do not have necessary permissions for the resource
  */
-router.delete('/:id', authorize([ROLE.Admin, ROLE.User]), notesController.deleteNote)
+router.delete('/:id', authorizeUserRole([ROLE.Admin, ROLE.User]), authorizeNoteChanges(), notesController.deleteNote)
 
 
 module.exports = router
