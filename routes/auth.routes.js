@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const authController = require('../controllers/auth.controllers')
 const ROLE = require('../models/role.module')
-const authorize = require('../middleware/authorize')
+const authorize = require('../middleware/authorizeUserRole')
 
 /**
  * @swagger
